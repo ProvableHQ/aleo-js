@@ -1,7 +1,11 @@
 {
-  "name": "aleojs",
+  "name": "@entropy1729/aleo-js",
   "version": "0.0.1",
   "description": "Aleo utilities in Javascript",
+  "collaborators": [
+    "The Entropy1729 Team <hello@entropy1729.com>"
+  ],
+  "license": "MIT",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -15,8 +19,6 @@
     "ZK",
     "Blockchain"
   ],
-  "author": "Entropy1729",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Entropy1729/aleo-js/issues"
   },
