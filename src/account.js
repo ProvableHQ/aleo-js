@@ -17,5 +17,4 @@ var Account = /** @class */ (function () {
     return Account;
 }());
 export { Account };
-export default Account;
 //# sourceMappingURL=account.js.map

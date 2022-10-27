@@ -1,5 +1,5 @@
 import fetch from 'unfetch'
-import Account from "./account";
+import {Account} from "./account";
 
 export class NodeConnection {
   host: string;
@@ -34,7 +34,7 @@ export class NodeConnection {
   }
 
   getRecords(){
-    return this.useFetchData('/records/all', 'POST', this.account?.viewKey().to_string());
+    return this.useFetchData('/ciphertexts/unspent', 'POST', this.account?.viewKey().to_string());
   }
 
   getUnspentRecords(){

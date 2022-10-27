@@ -1,6 +1,4 @@
-import Account from "./account";
+import { Account } from "./account";
+import { NodeConnection } from "./node_connection";
 
-let acc: Account = new Account();
-
-console.log(acc);
-
+export { Account, NodeConnection };
