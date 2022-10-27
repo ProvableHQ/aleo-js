@@ -1,4 +1,4 @@
-import { Address, PrivateKey, ViewKey } from "@entropy1729/aleo-sdk";
+import { Address, PrivateKey, Signature, ViewKey } from "@entropy1729/aleo-sdk";
 
 export class Account {
   pk: PrivateKey;
@@ -21,6 +21,39 @@ export class Account {
 
   address() {
     return this.adr;
+  }
+
+   /**
+    * @param {string} ciphertext
+    * @returns {Record}
+    */
+  decryptRecord(ciphertext: string) {
+    return this.vk.decrypt(ciphertext)
+  }
+
+  /**
+    * @param {string[]} ciphertexts
+    * @returns {Signature}
+    */
+  decryptRecords(ciphertexts: string[]) {
+    return ciphertexts.map(ciphertext => this.vk.decrypt(ciphertext))
+  }
+  
+  /**
+    * @param {Uint8Array} message
+    * @returns {Signature}
+    */  
+  sign(message: Uint8Array) {
+    return this.pk.sign(message)
+  }
+
+  /**
+    * @param {Uint8Array} message
+    * @param {Signature} signature
+    * @returns {boolean}
+    */
+  verify(message: Uint8Array, signature: Signature) {
+    return this.adr.verify(message, signature)
   }
 }
 
