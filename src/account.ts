@@ -23,5 +23,3 @@ export class Account {
     return this.adr;
   }
 }
-
-export default Account;
