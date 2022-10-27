@@ -1,3 +1,8 @@
 import Account from "./account";
 
-export default Account;
+let acc: Account = new Account();
+
+console.log(acc);
+
+console.log("aaaaaaaaaaaaa");
+
