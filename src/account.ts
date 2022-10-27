@@ -66,5 +66,3 @@ export class Account {
     return this.adr.verify(message, signature)
   }
 }
-
-export default Account;

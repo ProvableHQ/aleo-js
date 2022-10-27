@@ -1,3 +1,4 @@
-import Account from "./account";
+import {Account} from "./account";
+import {NodeConnection} from "./node_connection";
 
-export default Account;
+export{Account, NodeConnection};
