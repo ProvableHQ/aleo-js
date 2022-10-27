@@ -1,4 +1,3 @@
 # Aleo.js
 
-Aleo utilities in JavaScript
----
+## Aleo utilities in JavaScript

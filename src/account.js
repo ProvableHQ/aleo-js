@@ -1,23 +1,21 @@
 import { Address, PrivateKey, ViewKey } from "@entropy1729/aleo-sdk";
-
-class Account {
-  constructor() {
+var Account = /** @class */ (function () {
+  function Account() {
     this.pk = new PrivateKey();
     this.vk = ViewKey.from_private_key(this.pk);
     this.adr = Address.from_private_key(this.pk);
   }
-
-  privateKey() {
+  Account.prototype.privateKey = function () {
     return this.pk;
-  }
-
-  viewKey() {
+  };
+  Account.prototype.viewKey = function () {
     return this.vk;
-  }
-
-  address() {
+  };
+  Account.prototype.address = function () {
     return this.adr;
-  }
-}
-
+  };
+  return Account;
+})();
+export { Account };
 export default Account;
+//# sourceMappingURL=account.js.map
