@@ -1,6 +1,6 @@
 {
   "source": {
-    "include": ["src/account.ts", "README.md", "package.json"],
+    "include": ["src/account.ts", "README.md"],
     "includePattern": "\\.(jsx|js|ts|tsx)$"
   },
   "tags": {
