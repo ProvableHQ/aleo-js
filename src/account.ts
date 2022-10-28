@@ -29,16 +29,16 @@ export class Account {
   address() {
     return this.adr;
   }
-
-   /**
-    * Decrypt a Record given a ciphertext.
-    * @param {string} ciphertext
-    * @returns {Record}
-    * 
-    * @example
-    * let account = new Account();
-    * let record = account.decryptRecord("record1...");
-    */
+  
+  /**
+   * Decrypt a Record given a ciphertext.
+   * @param {string} ciphertext
+   * @returns {Record}
+   * 
+   * @example
+   * let account = new Account();
+   * let record = account.decryptRecord("record1...");
+   */
   decryptRecord(ciphertext: string) {
     return this.vk.decrypt(ciphertext)
   }
