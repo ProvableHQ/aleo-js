@@ -1,4 +1,4 @@
-<img src="./aleo.svg" alt="drawing" width="60"/>
+<img src="./public/aleo.svg" alt="drawing" width="60"/>
 
 # Aleo.js
 
