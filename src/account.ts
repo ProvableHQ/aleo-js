@@ -1,5 +1,8 @@
-import { Address, PrivateKey, ViewKey } from "@entropy1729/aleo-sdk";
+import { Address, PrivateKey, Signature, ViewKey } from "@entropy1729/aleo-sdk";
 
+/**
+ * Class that represents an Aleo Account with a PrivateKey, from which an Address and a ViewKey derive.
+ */
 export class Account {
   pk: PrivateKey;
   vk: ViewKey;
@@ -21,5 +24,45 @@ export class Account {
 
   address() {
     return this.adr;
+  }
+
+   /**
+    * Decrypts a Record given a ciphertext.
+    * @param {string} ciphertext
+    * @returns {Record}
+    */
+  decryptRecord(ciphertext: string) {
+    return this.vk.decrypt(ciphertext)
+  }
+
+  /**
+   * Decrypts a set of Records given an array of ciphertexts. 
+   * @param {string[]} ciphertexts
+   * @returns {Record[]}
+   */
+  decryptRecords(ciphertexts: string[]) {
+    return ciphertexts.map(ciphertext => this.vk.decrypt(ciphertext))
+  }
+  
+  /**
+   * Signs a message with the account's private key.
+   * Returns a Signature.
+   * 
+   * @param {Uint8Array} message
+   * @returns {Signature}
+   */  
+  sign(message: Uint8Array) {
+    return this.pk.sign(message)
+  }
+
+  /**
+   * Verifies the Signature on a message.
+   * 
+   * @param {Uint8Array} message
+   * @param {Signature} signature
+   * @returns {boolean}
+   */
+  verify(message: Uint8Array, signature: Signature) {
+    return this.adr.verify(message, signature)
   }
 }
