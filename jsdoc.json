@@ -1,6 +1,6 @@
 {
   "source": {
-    "include": ["src/account.ts","src/node_connection.ts", "README.md"],
+    "include": ["src/account.ts","src/node_connection.ts"],
     "includePattern": "\\.(jsx|js|ts|tsx)$"
   },
   "tags": {
@@ -16,7 +16,8 @@
     "template": "./node_modules/clean-jsdoc-theme",
     "theme_opts": {
       "default_theme": "dark",
-      "static_dir": ["./public"]
+      "static_dir": ["./public"],
+      "homepageTitle": "Aleo.js"
     }
   },
   "markdown": {
