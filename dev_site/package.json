@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack build",
-    "dev": "webpack serve"
+    "dev": "webpack serve",
+    "test": "jest"
   },
   "keywords": [],
   "author": "Mati Onorato",
