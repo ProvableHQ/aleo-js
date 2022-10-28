@@ -3,11 +3,24 @@ import { Address, PrivateKey, ViewKey } from "@entropy1729/aleo-sdk";
  * Class that represents an Aleo Account with a PrivateKey, from which an Address and a ViewKey derive.
  */
 var Account = /** @class */ (function () {
-    function Account() {
-        this.pk = new PrivateKey();
+    function Account(privatekey) {
+        if (privatekey === void 0) { privatekey = ""; }
+        if (privatekey) {
+            this.pk = PrivateKey.from_string(privatekey);
+        }
+        else {
+            this.pk = new PrivateKey();
+        }
         this.vk = ViewKey.from_private_key(this.pk);
         this.adr = Address.from_private_key(this.pk);
     }
+    Account.prototype.keys = function () {
+        return {
+            Address: this.adr.to_string(),
+            ViewKey: this.vk.to_string(),
+            PrivateKey: this.pk.to_string()
+        };
+    };
     Account.prototype.privateKey = function () {
         return this.pk;
     };

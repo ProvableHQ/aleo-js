@@ -8,10 +8,25 @@ export class Account {
   vk: ViewKey;
   adr: Address;
 
-  constructor() {
-    this.pk = new PrivateKey();
+  constructor(privatekey="") {
+
+    if(privatekey){
+      this.pk = PrivateKey.from_string(privatekey);
+    }
+    else{
+      this.pk = new PrivateKey();
+    }
+
     this.vk = ViewKey.from_private_key(this.pk);
     this.adr = Address.from_private_key(this.pk);
+  }
+
+  keys() {
+    return {
+      Address: this.adr.to_string(),
+      ViewKey: this.vk.to_string(),
+      PrivateKey: this.pk.to_string()
+    }
   }
 
   privateKey() {
