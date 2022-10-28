@@ -2,6 +2,10 @@ import { Address, PrivateKey, Signature, ViewKey } from "@entropy1729/aleo-sdk";
 
 /**
  * Class that represents an Aleo Account with a PrivateKey, from which an Address and a ViewKey derive.
+ * 
+ * @example
+ * let account = new Account();
+ * 
  */
 export class Account {
   pk: PrivateKey;
@@ -27,40 +31,58 @@ export class Account {
   }
 
    /**
-    * Decrypts a Record given a ciphertext.
+    * Decrypt a Record given a ciphertext.
     * @param {string} ciphertext
     * @returns {Record}
+    * 
+    * @example
+    * let account = new Account();
+    * let record = account.decryptRecord("record1...");
     */
   decryptRecord(ciphertext: string) {
     return this.vk.decrypt(ciphertext)
   }
 
   /**
-   * Decrypts a set of Records given an array of ciphertexts. 
+   * Decrypt a set of Records given an array of ciphertexts. 
    * @param {string[]} ciphertexts
    * @returns {Record[]}
+   *     
+   * @example
+   * let account = new Account();
+   * let record = account.decryptRecords(["record1...", "record2..."]);
    */
   decryptRecords(ciphertexts: string[]) {
     return ciphertexts.map(ciphertext => this.vk.decrypt(ciphertext))
   }
   
   /**
-   * Signs a message with the account's private key.
+   * Sign a message with the account's private key.
    * Returns a Signature.
    * 
    * @param {Uint8Array} message
    * @returns {Signature}
+   * 
+   * @example
+   * let account = new Account();
+   * account.sign("a message");
    */  
   sign(message: Uint8Array) {
     return this.pk.sign(message)
   }
 
   /**
-   * Verifies the Signature on a message.
+   * Verify the Signature on a message.
    * 
    * @param {Uint8Array} message
    * @param {Signature} signature
    * @returns {boolean}
+   * 
+   * @example
+   * let account = new Account();
+   * let message = "a message";
+   * let signature = account.sign(message);
+   * account.verify(message, signature);
    */
   verify(message: Uint8Array, signature: Signature) {
     return this.adr.verify(message, signature)
