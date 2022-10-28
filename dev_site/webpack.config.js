@@ -4,14 +4,14 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = {
   entry: {
-    index: "./src/index.js"
+    index: "./src/index.js",
   },
-  mode:"development",
+  mode: "development",
   output: {
     path: path.join(__dirname, "/dist"),
     filename: "[name].bundle.js",
-    libraryTarget: 'var',
-    library: 'AleoJS'
+    libraryTarget: "var",
+    library: "AleoJS",
   },
   devServer: {
     static: {
@@ -31,14 +31,14 @@ module.exports = {
             presets: [["@babel/preset-env", { targets: "defaults" }]],
           },
         },
-      }
+      },
     ],
   },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: "./public/index.html"
-    })
+      template: "./public/index.html",
+    }),
   ],
   experiments: {
     asyncWebAssembly: true,

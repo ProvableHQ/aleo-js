@@ -1,14 +1,12 @@
 {
   "source": {
-    "include": ["src/account.ts", "README.md"],
+    "include": ["src/account.ts","src/node_connection.ts", "README.md"],
     "includePattern": "\\.(jsx|js|ts|tsx)$"
   },
   "tags": {
     "allowUnknownTags": ["optional"]
   },
-  "plugins": [
-    "node_modules/better-docs/typescript"
-  ],
+  "plugins": ["node_modules/better-docs/typescript"],
   "opts": {
     "encoding": "utf8",
     "readme": "./README.md",
