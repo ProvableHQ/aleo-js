@@ -1,13 +1,13 @@
 {
   "source": {
-    "include": ["src/account.ts", "README.md", "package.json"],
+    "include": ["src/account.ts", "README.md"],
     "includePattern": "\\.(jsx|js|ts|tsx)$"
   },
   "tags": {
     "allowUnknownTags": ["optional"]
   },
   "plugins": [
-      "node_modules/better-docs/typescript"
+    "node_modules/better-docs/typescript"
   ],
   "opts": {
     "encoding": "utf8",
@@ -17,7 +17,8 @@
     "verbose": true,
     "template": "./node_modules/clean-jsdoc-theme",
     "theme_opts": {
-      "default_theme": "dark"
+      "default_theme": "dark",
+      "static_dir": ["./public"]
     }
   },
   "markdown": {
