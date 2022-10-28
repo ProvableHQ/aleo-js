@@ -2,7 +2,6 @@ import { Address, PrivateKey, Signature, ViewKey } from "@entropy1729/aleo-sdk";
 
 /**
  * Class that represents an Aleo Account with a PrivateKey, from which an Address and a ViewKey derive.
- * 
  * @example
  * let account = new Account();
  * 
@@ -12,10 +11,25 @@ export class Account {
   vk: ViewKey;
   adr: Address;
 
-  constructor() {
-    this.pk = new PrivateKey();
+  constructor(privatekey="") {
+
+    if(privatekey){
+      this.pk = PrivateKey.from_string(privatekey);
+    }
+    else{
+      this.pk = new PrivateKey();
+    }
+
     this.vk = ViewKey.from_private_key(this.pk);
     this.adr = Address.from_private_key(this.pk);
+  }
+
+  keys() {
+    return {
+      Address: this.adr.to_string(),
+      ViewKey: this.vk.to_string(),
+      PrivateKey: this.pk.to_string()
+    }
   }
 
   privateKey() {
@@ -31,7 +45,7 @@ export class Account {
   }
   
   /**
-   * Decrypt a Record given a ciphertext.
+   * Decrypts a Record given a ciphertext.
    * @param {string} ciphertext
    * @returns {Record}
    * 
@@ -44,7 +58,7 @@ export class Account {
   }
 
   /**
-   * Decrypt a set of Records given an array of ciphertexts. 
+   * Decrypts a set of Records given an array of ciphertexts. 
    * @param {string[]} ciphertexts
    * @returns {Record[]}
    *     
@@ -57,7 +71,7 @@ export class Account {
   }
   
   /**
-   * Sign a message with the account's private key.
+   * Signs a message with the account's private key.
    * Returns a Signature.
    * 
    * @param {Uint8Array} message
@@ -72,7 +86,7 @@ export class Account {
   }
 
   /**
-   * Verify the Signature on a message.
+   * Verifies the Signature on a message.
    * 
    * @param {Uint8Array} message
    * @param {Signature} signature

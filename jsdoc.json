@@ -7,7 +7,7 @@
     "allowUnknownTags": ["optional"]
   },
   "plugins": [
-      "node_modules/better-docs/typescript"
+    "node_modules/better-docs/typescript"
   ],
   "opts": {
     "encoding": "utf8",

@@ -11,7 +11,7 @@ module.exports = {
     path: path.join(__dirname, "/dist"),
     filename: "[name].bundle.js",
     libraryTarget: 'var',
-    library: 'EntryPoint'
+    library: 'AleoJS'
   },
   devServer: {
     static: {

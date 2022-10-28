@@ -1,4 +1,4 @@
-import {Account} from "./account";
-import {NodeConnection} from "./node_connection";
+import { Account } from "./account";
+import { NodeConnection } from "./node_connection";
 
-export{Account, NodeConnection};
+export { Account, NodeConnection };
