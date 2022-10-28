@@ -7,10 +7,9 @@
 This package provides the following structures to work with:
 
 1. [Account](/Account)
-2. [Node Connection](TBD)
+2. [Node Connection](/NodeConnection)
 
-If you'd like to read more about Aleo accounts, private keys, etc., you may refer to [Aleo's docs](https://developer.aleo.org/concepts/accounts
-)
+If you'd like to read more about Aleo accounts, private keys, etc., you may refer to [Aleo's docs](https://developer.aleo.org/concepts/accounts)
 
 Happy hacking!
 
@@ -18,7 +17,7 @@ Happy hacking!
 
 [Aleo SDK account generator](https://aleohq.github.io/aleo/)
 
-[Aleo SDK repo](https://github.com/AleoHQ/aleo)
+[Aleo SDK repo (Entropy1729 fork)](https://github.com/Entropy1729/aleo)
 
 [Aleo web](https://www.aleo.org/)
 

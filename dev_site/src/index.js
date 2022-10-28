@@ -1,3 +1,3 @@
-import { Account, NodeConnection } from '@entropy1729/aleo-js';
+import { Account, NodeConnection } from "@entropy1729/aleo-js";
 
-export{ Account, NodeConnection };
+export { Account, NodeConnection };

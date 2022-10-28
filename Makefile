@@ -5,4 +5,4 @@ linter:
 	npx eslint .
 
 generate_docs:
-	jsdoc --configure jsdoc.json --verbose
+	npx jsdoc --configure jsdoc.json --verbose
