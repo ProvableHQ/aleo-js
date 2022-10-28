@@ -6,8 +6,8 @@
 
 This package provides the following structures to work with:
 
-1. [Account](./Account.html)
-2. [Node Connection](./NodeConnection.html)
+1. [Account](https://entropy1729.github.io/aleo-js/Account.html)
+2. [Node Connection](https://entropy1729.github.io/aleo-js/NodeConnection.html)
 
 If you'd like to read more about Aleo accounts, private keys, etc., you may refer to [Aleo's docs](https://developer.aleo.org/concepts/accounts)
 
