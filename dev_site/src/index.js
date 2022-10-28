@@ -20,3 +20,4 @@ node.getUnspentRecords()
 // node.getTransactionBroadcast()
 
 export{ Account, NodeConnection };
+
