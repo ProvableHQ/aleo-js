@@ -6,8 +6,8 @@
 
 This package provides the following structures to work with:
 
-1. [Account](/Account)
-2. [Node Connection](/NodeConnection)
+1. [Account](./Account.html)
+2. [Node Connection](./NodeConnection.html)
 
 If you'd like to read more about Aleo accounts, private keys, etc., you may refer to [Aleo's docs](https://developer.aleo.org/concepts/accounts)
 
