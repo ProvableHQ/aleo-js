@@ -39,39 +39,39 @@ export class NodeConnection {
     };
   }
 
-  async getAllCiphertexts(){ // check
+  async getAllCiphertexts(){
     return await this.useFetchData('/ciphertexts/all', 'POST', this.account?.viewKey().to_string());
   }
 
-  async getUnspentCiphertexts(){ // check
+  async getUnspentCiphertexts(){
     return await this.useFetchData('/ciphertexts/unspent', 'POST', this.account?.viewKey().to_string());
   }
 
-  async getSpentCiphertexts(){ // check
+  async getSpentCiphertexts(){
     return await this.useFetchData('/ciphertexts/spent', 'POST', this.account?.viewKey().to_string());
   }
 
-  async getLatestHeight(){ // check
+  async getLatestHeight(){
     return await this.useFetchData('/latest/height');
   }
 
-  async getLatestHash(){ // check
+  async getLatestHash(){
     return await this.useFetchData('/latest/hash');
   }
 
-  async getLatestBlock(){ // check
+  async getLatestBlock(){
     return await this.useFetchData('/latest/block');
   }
 
-  async getTransactions(height: number){ // check
+  async getTransactions(height: number){
     return await this.useFetchData('/transactions/' + height);
   }
 
-  async getTransaction(id: string){ // check
+  async getTransaction(id: string){
     return await this.useFetchData('/transaction/' + id);
   }
 
-  async getBlock(id: number){ // check
+  async getBlock(id: number){
     return await this.useFetchData('/block/' + id);
   }
 }
