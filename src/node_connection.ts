@@ -17,24 +17,30 @@ export class NodeConnection {
   useFetchData(
     url: string='/',
     method: string='GET',
-    body?: string,
+    body: string="",
     headers: Record<string, string>= {'Content-Type': 'application/json'},
   ){
+    //console.log({url: url, method: method, body: body, headers: headers})
     fetch(this.host + url, {
       method: method,
+      body: JSON.stringify(body),
       headers: headers,
-      body: body
     }).then( response => {
+      console.log({url: url, response: response.json()})
       return response.json();
     })
   }
 
   getAccount(){
-    return this.account;
+    return {
+      Address: this.account?.address().to_string(), 
+      ViewKey:this.account?.viewKey().to_string(),
+      PrivateKey: this.account?.privateKey().to_string()
+    };
   }
 
-  getRecords(){
-    return this.useFetchData('/ciphertexts/unspent', 'POST', this.account?.viewKey().to_string());
+  getAllRecords(){
+    return this.useFetchData('/records/all', 'POST', this.account?.viewKey().to_string());
   }
 
   getUnspentRecords(){
@@ -43,6 +49,18 @@ export class NodeConnection {
 
   getSpentRecords(){
     return this.useFetchData('/records/spent', 'POST', this.account?.viewKey().to_string());
+  }
+
+  getAllCiphertexts(){
+    return this.useFetchData('/ciphertexts/all', 'POST', this.account?.viewKey().to_string());
+  }
+
+  getUnspentCiphertexts(){
+    return this.useFetchData('/ciphertexts/unspent', 'POST', this.account?.viewKey().to_string());
+  }
+
+  getSpentCiphertexts(){
+    return this.useFetchData('/ciphertexts/spent', 'POST', this.account?.viewKey().to_string());
   }
 
   getLatestBlockHeight(){
