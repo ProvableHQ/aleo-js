@@ -5,28 +5,30 @@ export class NodeConnection {
   host: string;
   account: Account | undefined;
 
-  constructor(host: string = "http://34.217.100.97/testnet3") {
-    this.host = host;
+  constructor(host: string) {
+    this.host = host + '/testnet3';
   }
 
   setAccount(account: Account) {
     this.account = account;
   }
 
-  useFetchData(
+  async useFetchData(
     url: string='/',
     method: string='GET',
     body: string="",
     headers: Record<string, string>= {'Content-Type': 'application/json'},
   ){
-    //console.log({url: url, method: method, body: body, headers: headers})
-    return fetch(this.host + url, {
+    let response =  await fetch(this.host + url, {
       method: method,
       body: JSON.stringify(body),
       headers: headers,
-    }).then( response => {
-      return response.json();
-    })
+    });
+    try {
+      return await response.json();  
+    } catch (error){
+      return error;
+    }
   }
 
   getAccount(){
@@ -37,63 +39,41 @@ export class NodeConnection {
     };
   }
 
-  getAllRecords(){
-    return this.useFetchData('/records/all', 'POST', this.account?.viewKey().to_string());
+  async getAllCiphertexts(){ // check
+    return await this.useFetchData('/ciphertexts/all', 'POST', this.account?.viewKey().to_string());
   }
 
-  getUnspentRecords(){
-    return this.useFetchData('/records/unspent', 'POST', this.account?.viewKey().to_string());
+  async getUnspentCiphertexts(){ // check
+    return await this.useFetchData('/ciphertexts/unspent', 'POST', this.account?.viewKey().to_string());
   }
 
-  getSpentRecords(){
-    return this.useFetchData('/records/spent', 'POST', this.account?.viewKey().to_string());
+  async getSpentCiphertexts(){ // check
+    return await this.useFetchData('/ciphertexts/spent', 'POST', this.account?.viewKey().to_string());
   }
 
-  getAllCiphertexts(){
-    return this.useFetchData('/ciphertexts/all', 'POST', this.account?.viewKey().to_string());
+  async getLatestHeight(){ // check
+    return await this.useFetchData('/latest/height');
   }
 
-  getUnspentCiphertexts(){
-    return this.useFetchData('/ciphertexts/unspent', 'POST', this.account?.viewKey().to_string());
+  async getLatestHash(){ // check
+    return await this.useFetchData('/latest/hash');
   }
 
-  getSpentCiphertexts(){
-    return this.useFetchData('/ciphertexts/spent', 'POST', this.account?.viewKey().to_string());
+  async getLatestBlock(){ // check
+    return await this.useFetchData('/latest/block');
   }
 
-  getLatestBlockHeight(){
-    // get max height
-    let height = 0;
-    return this.useFetchData('/latest/block/' + height);
+  async getTransactions(height: number){ // check
+    return await this.useFetchData('/transactions/' + height);
   }
 
-  getLatestBlockHash(){
-    return this.useFetchData('/latest/block/hash');
+  async getTransaction(id: string){ // check
+    return await this.useFetchData('/transaction/' + id);
   }
 
-  getLatestBlock(){
-    return this.useFetchData('/latest/block');
+  async getBlock(id: number){ // check
+    return await this.useFetchData('/block/' + id);
   }
-
-  getTransactions(){
-    return this.useFetchData('/transactions');
-  }
-
-  getTransaction(id: string){
-    return this.useFetchData('/transaction/' + id);
-  }
-
-  getBlock(id: string){
-    return this.useFetchData('/block/' + id);
-  }
-
-  getStatePath(commitment: string){
-    return this.useFetchData('/statePath/' + commitment);
-  }
-
-  getTransactionBroadcast(){
-    return this.useFetchData('/transaction/broadcast', 'POST');
-  } 
 }
 
 export default NodeConnection;
