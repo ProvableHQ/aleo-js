@@ -10,7 +10,6 @@ export class NodeConnection {
   }
 
   setAccount(account: Account) {
-    console.log("setting account")
     this.account = account;
   }
 
@@ -21,12 +20,11 @@ export class NodeConnection {
     headers: Record<string, string>= {'Content-Type': 'application/json'},
   ){
     //console.log({url: url, method: method, body: body, headers: headers})
-    fetch(this.host + url, {
+    return fetch(this.host + url, {
       method: method,
       body: JSON.stringify(body),
       headers: headers,
     }).then( response => {
-      console.log({url: url, response: response.json()})
       return response.json();
     })
   }
