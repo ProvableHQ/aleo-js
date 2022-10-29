@@ -1,6 +1,6 @@
 {
   "name": "@entropy1729/aleo-js",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "Aleo utilities in Javascript",
   "collaborators": [
     "The Entropy1729 Team <hello@entropy1729.com>"

@@ -4,6 +4,10 @@
 
 ## Aleo utilities in JavaScript
 
+Aleo high-level utilities in javascript to handle Accounts and Node connections in the browser.
+
+Makes use of [Aleo-SDK](https://www.npmjs.com/package/@entropy1729/aleo-sdk) under the hood.
+
 This package provides the following structures to work with:
 
 1. [Account](https://entropy1729.github.io/aleo-js/Account.html)
