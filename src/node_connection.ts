@@ -28,12 +28,22 @@ export class NodeConnection {
     this.account = account;
   }
 
-  async useFetchData(
+  /**
+   * Returns de information of the setted account
+   *
+   * @example
+   * let account = connection.getAccount(account);
+   */
+   getAccount(): Account | undefined {
+    return this.account;
+  }
+
+  async useFetchData<Type>(
     url: string = "/",
     method: string = "GET",
     body: string = "",
     headers: Record<string, string> = { "Content-Type": "application/json" }
-  ) {
+  ): Promise<Type | Error> {
     let response = await fetch(this.host + url, {
       method: method,
       body: JSON.stringify(body),
@@ -42,22 +52,8 @@ export class NodeConnection {
     try {
       return await response.json();
     } catch (error) {
-      return error;
+      return new Error("ERROR");
     }
-  }
-
-  /**
-   * Returns de information of the setted account
-   *
-   * @example
-   * let account = connection.getAccount(account);
-   */
-  getAccount() {
-    return {
-      Address: this.account?.address().to_string(),
-      ViewKey: this.account?.viewKey().to_string(),
-      PrivateKey: this.account?.privateKey().to_string(),
-    };
   }
 
   /**
@@ -66,8 +62,8 @@ export class NodeConnection {
    * @example
    * let cyphertexts = connection.getAllCiphertexts();
    */
-  async getAllCiphertexts() {
-    return await this.useFetchData(
+  async getAllCiphertexts(): Promise<Array<Ciphertext> | Error> {
+    return await this.useFetchData<Array<Ciphertext>>(
       "/ciphertexts/all",
       "POST",
       this.account?.viewKey().to_string()
@@ -80,8 +76,8 @@ export class NodeConnection {
    * @example
    * let cyphertexts = connection.getUnspentCiphertexts();
    */
-  async getUnspentCiphertexts() {
-    return await this.useFetchData(
+  async getUnspentCiphertexts(): Promise<Array<Ciphertext> | Error> {
+    return await this.useFetchData<Array<Ciphertext>>(
       "/ciphertexts/unspent",
       "POST",
       this.account?.viewKey().to_string()
@@ -94,8 +90,8 @@ export class NodeConnection {
    * @example
    * let cyphertexts = connection.getSpentCiphertexts();
    */
-  async getSpentCiphertexts() {
-    return await this.useFetchData(
+  async getSpentCiphertexts(): Promise<Array<Ciphertext> | Error> {
+    return await this.useFetchData<Array<Ciphertext>>(
       "/ciphertexts/spent",
       "POST",
       this.account?.viewKey().to_string()
