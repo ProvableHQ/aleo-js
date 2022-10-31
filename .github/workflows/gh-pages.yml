@@ -17,6 +17,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18'
+      
+      - run: npm i
+
       - name: Build
         uses: andstor/jsdoc-action@v1
         with:
