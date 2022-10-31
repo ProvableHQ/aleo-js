@@ -19,7 +19,7 @@ jobs:
           source_dir: ./src
           output_dir: ./out
           config_file: jsdoc.json
-          template: minami
+          template: clean-jsdoc-theme
           front_page: README.md
 
       - name: Deploy
