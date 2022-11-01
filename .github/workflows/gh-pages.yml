@@ -19,7 +19,7 @@ jobs:
         uses: andstor/jsdoc-action@v1
         with:
           source_dir: ./src
-          output_dir: ./out
+          output_dir: ./docs
           config_file: jsdoc.json
           template: clean-jsdoc-theme
           front_page: README.md
@@ -28,4 +28,4 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          publish_dir: ./out
+          publish_dir: ./docs
