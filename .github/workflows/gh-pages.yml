@@ -15,14 +15,7 @@ jobs:
 
       - run: npm i
 
-      - name: Build
-        uses: andstor/jsdoc-action@v1
-        with:
-          source_dir: ./src
-          output_dir: ./docs
-          config_file: jsdoc.json
-          template: clean-jsdoc-theme
-          front_page: README.md
+      - run: make generate_docs
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
