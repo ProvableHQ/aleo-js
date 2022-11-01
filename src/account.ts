@@ -19,6 +19,25 @@ export class Account {
     this.adr = Address.from_private_key(this.pk);
   }
 
+  /**
+   * Creates an account from a seed.
+   * Seed must be 32 bytes long.
+   * @param {Uint8Array} seed
+   * @returns {Account}
+   *
+   * @example
+   * let account = new Account();
+   * let record = account.decryptRecord("record1...");
+   */
+  fromSeed(seed: Uint8Array) {
+    try {
+      this.pk = PrivateKey.from_seed_unchecked(seed);
+      this.vk = ViewKey.from_private_key(this.pk);
+      this.adr = Address.from_private_key(this.pk);
+    } catch (e) {
+      console.log("Non valid seed: ", e);
+    }
+  }
   keys() {
     return {
       Address: this.adr.to_string(),
