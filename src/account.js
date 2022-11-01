@@ -3,17 +3,39 @@ import { Address, PrivateKey, ViewKey } from "@entropy1729/aleo-sdk";
  * Class that represents an Aleo Account with a PrivateKey, from which an Address and a ViewKey derive.
  * @example
  * let account = new Account();
- *
  */
 var Account = /** @class */ (function () {
-    function Account(privatekey) {
-        if (privatekey === void 0) { privatekey = ""; }
-        this.pk = privatekey
-            ? PrivateKey.from_string(privatekey)
-            : new PrivateKey();
+    function Account(params) {
+        if (params === void 0) { params = {}; }
+        try {
+            this.pk = this.privateKeyFromParams(params);
+        }
+        catch (e) {
+            console.error("Wrong parameter", e);
+            throw new Error("Wrong Parameter");
+        }
         this.vk = ViewKey.from_private_key(this.pk);
         this.adr = Address.from_private_key(this.pk);
     }
+    Account.prototype.privateKeyFromParams = function (params) {
+        if (params.seed) {
+            return PrivateKey.from_seed_unchecked(params.seed);
+        }
+        if (params.privateKey) {
+            return PrivateKey.from_string(params.privateKey);
+        }
+        return new PrivateKey();
+    };
+    /**
+     * Creates an account from a seed.
+     * Seed must be 32 bytes long.
+     * @param {Uint8Array} seed
+     * @returns {Account}
+     *
+     * @example
+     * let account = new Account();
+     * let record = account.decryptRecord("record1...");
+     */
     Account.prototype.keys = function () {
         return {
             Address: this.adr.to_string(),
