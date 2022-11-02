@@ -1,5 +1,7 @@
 import fetch from "unfetch";
 import { Account } from "./account";
+import { Transaction, Transactions, Block, Ciphertext } from "@entropy1729/aleo-sdk";
+
 
 /**
  * Class that represents an Aleo Node Connection and allows us to communicate with the node.
@@ -104,8 +106,8 @@ export class NodeConnection {
    * @example
    * let latestHeight = connection.getLatestHeight();
    */
-  async getLatestHeight() {
-    return await this.useFetchData("/latest/height");
+  async getLatestHeight(): Promise<number | Error> {
+    return await this.useFetchData<number>("/latest/height");
   }
 
   /**
@@ -114,8 +116,8 @@ export class NodeConnection {
    * @example
    * let latestHash = connection.getLatestHash();
    */
-  async getLatestHash() {
-    return await this.useFetchData("/latest/hash");
+  async getLatestHash(): Promise<string | Error> {
+    return await this.useFetchData<string>("/latest/hash");
   }
 
   /**
@@ -124,8 +126,12 @@ export class NodeConnection {
    * @example
    * let latestHeight = connection.getLatestBlock();
    */
-  async getLatestBlock() {
-    return await this.useFetchData("/latest/block");
+  async getLatestBlock(): Promise<Block | Error> {
+
+    let block = await this.useFetchData<Block>("/latest/block");
+    console.log(block);
+    console.log(typeof(block));
+    return block;
   }
 
   /**
@@ -135,8 +141,8 @@ export class NodeConnection {
    * @example
    * let transactions = connection.getTransactions(654);
    */
-  async getTransactions(height: number) {
-    return await this.useFetchData("/transactions/" + height);
+  async getTransactions(height: number): Promise<Array<Transaction> | Error> {
+    return await this.useFetchData<Array<Transaction>>("/transactions/" + height);
   }
 
   /**
@@ -146,8 +152,8 @@ export class NodeConnection {
    * @example
    * let transaction = connection.getTransaction("at1handz9xjrqeynjrr0xay4pcsgtnczdksz3e584vfsgaz0dh0lyxq43a4wj");
    */
-  async getTransaction(id: string) {
-    return await this.useFetchData("/transaction/" + id);
+  async getTransaction(id: string): Promise<Transaction | Error> {
+    return await this.useFetchData<Transaction>("/transaction/" + id);
   }
 
   /**
@@ -157,8 +163,8 @@ export class NodeConnection {
    * @example
    * let block = connection.getBlock(1234);
    */
-  async getBlock(id: number) {
-    return await this.useFetchData("/block/" + id);
+  async getBlock(id: number): Promise<Block | Error> {
+    return await this.useFetchData<Block>("/block/" + id);
   }
 }
 
