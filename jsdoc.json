@@ -1,7 +1,6 @@
 {
   "source": {
-    "include": ["src/account.ts","src/node_connection.ts"],
-    "includePattern": ".+\\.ts?$"
+    "include": ["src/account.ts", "src/node_connection.ts"]
   },
   "tags": {
     "allowUnknownTags": ["optional"]
