@@ -6,7 +6,6 @@ on:
       - main
       - jsdoc_action
        
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
