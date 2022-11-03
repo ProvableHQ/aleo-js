@@ -1,7 +1,8 @@
 import fetch from "unfetch";
 import { Account } from "./account";
-import { Transaction, Transactions, Block, Ciphertext } from "@entropy1729/aleo-sdk";
-
+import { Ciphertext } from "@entropy1729/aleo-sdk";
+import { Block } from "./models/block";
+import { Transaction} from "./models/transaction";
 
 /**
  * Class that represents an Aleo Node Connection and allows us to communicate with the node.
@@ -40,22 +41,21 @@ export class NodeConnection {
     return this.account;
   }
 
-  async useFetchData<Type>(
+  async fetchData<Type>(
     url: string = "/",
     method: string = "GET",
     body: string = "",
     headers: Record<string, string> = { "Content-Type": "application/json" }
-  ): Promise<Type | Error> {
-    let response = await fetch(this.host + url, {
-      method: method,
-      body: JSON.stringify(body),
-      headers: headers,
-    });
-    try {
-      return await response.json();
-    } catch (error) {
-      return new Error("ERROR");
-    }
+  ): Promise<Type> {
+      let response = await fetch(this.host + url, {
+        method: method,
+        body: JSON.stringify(body),
+        headers: headers,
+      });
+      try {
+        if (!response.ok) { throw response }
+        return (await response.json()) as Type;
+      } catch (error) { throw error; }
   }
 
   /**
@@ -65,11 +65,16 @@ export class NodeConnection {
    * let cyphertexts = connection.getAllCiphertexts();
    */
   async getAllCiphertexts(): Promise<Array<Ciphertext> | Error> {
-    return await this.useFetchData<Array<Ciphertext>>(
-      "/ciphertexts/all",
-      "POST",
-      this.account?.viewKey().to_string()
-    );
+    try {
+      return await this.fetchData<Array<Ciphertext>>(
+        "/ciphertexts/all",
+        "POST",
+        this.account?.viewKey().to_string()
+      );
+    } catch (error) {
+      console.log("Error - response: ", error);
+      throw new Error("Error fetching all ciphertexts.");
+    }
   }
 
   /**
@@ -79,11 +84,16 @@ export class NodeConnection {
    * let cyphertexts = connection.getUnspentCiphertexts();
    */
   async getUnspentCiphertexts(): Promise<Array<Ciphertext> | Error> {
-    return await this.useFetchData<Array<Ciphertext>>(
-      "/ciphertexts/unspent",
-      "POST",
-      this.account?.viewKey().to_string()
-    );
+    try {
+      return await this.fetchData<Array<Ciphertext>>(
+        "/ciphertexts/unspent",
+        "POST",
+        this.account?.viewKey().to_string()
+      );
+    } catch (error) {
+      console.log("Error - response: ", error);
+      throw new Error("Error fetching unspent ciphertexts.");
+    }
   }
 
   /**
@@ -93,11 +103,16 @@ export class NodeConnection {
    * let cyphertexts = connection.getSpentCiphertexts();
    */
   async getSpentCiphertexts(): Promise<Array<Ciphertext> | Error> {
-    return await this.useFetchData<Array<Ciphertext>>(
-      "/ciphertexts/spent",
-      "POST",
-      this.account?.viewKey().to_string()
-    );
+    try {
+      return await this.fetchData<Array<Ciphertext>>(
+        "/ciphertexts/spent",
+        "POST",
+        this.account?.viewKey().to_string()
+      );
+    } catch (error) {
+      console.log("Error - response: ", error);
+      throw new Error("Error fetching spent ciphertexts.");
+    }
   }
 
   /**
@@ -107,7 +122,12 @@ export class NodeConnection {
    * let latestHeight = connection.getLatestHeight();
    */
   async getLatestHeight(): Promise<number | Error> {
-    return await this.useFetchData<number>("/latest/height");
+    try {
+      return await this.fetchData<number>("/latest/height");
+    } catch (error) {
+      console.log("Error - response: ", error);
+      throw new Error("Error fetching latest height.");
+    }
   }
 
   /**
@@ -117,7 +137,12 @@ export class NodeConnection {
    * let latestHash = connection.getLatestHash();
    */
   async getLatestHash(): Promise<string | Error> {
-    return await this.useFetchData<string>("/latest/hash");
+    try {
+      return await this.fetchData<string>("/latest/hash");
+    } catch (error) {
+      console.log("Error - response: ", error);
+      throw new Error("Error fetching latest hash.");
+    }
   }
 
   /**
@@ -127,11 +152,12 @@ export class NodeConnection {
    * let latestHeight = connection.getLatestBlock();
    */
   async getLatestBlock(): Promise<Block | Error> {
-
-    let block = await this.useFetchData<Block>("/latest/block");
-    console.log(block);
-    console.log(typeof(block));
-    return block;
+    try {
+      return await this.fetchData<Block>("/latest/block") as Block;
+    } catch (error) {
+      console.log("Error - response: ", error);
+      throw new Error("Error fetching latest block.");
+    }
   }
 
   /**
@@ -142,7 +168,12 @@ export class NodeConnection {
    * let transactions = connection.getTransactions(654);
    */
   async getTransactions(height: number): Promise<Array<Transaction> | Error> {
-    return await this.useFetchData<Array<Transaction>>("/transactions/" + height);
+    try {
+      return await this.fetchData<Array<Transaction>>("/transactions/" + height);
+    } catch (error) {
+      console.log("Error - response: ", error);
+      throw new Error("Error fetching transactions.");
+    }
   }
 
   /**
@@ -153,7 +184,12 @@ export class NodeConnection {
    * let transaction = connection.getTransaction("at1handz9xjrqeynjrr0xay4pcsgtnczdksz3e584vfsgaz0dh0lyxq43a4wj");
    */
   async getTransaction(id: string): Promise<Transaction | Error> {
-    return await this.useFetchData<Transaction>("/transaction/" + id);
+    try {
+      return await this.fetchData<Transaction>("/transaction/" + id);
+    } catch (error) {
+      console.log("Error - response: ", error);
+      throw new Error("Error fetching transaction.");
+    }
   }
 
   /**
@@ -164,7 +200,12 @@ export class NodeConnection {
    * let block = connection.getBlock(1234);
    */
   async getBlock(id: number): Promise<Block | Error> {
-    return await this.useFetchData<Block>("/block/" + id);
+    try {
+      return await this.fetchData<Block>("/block/" + id);
+    } catch (error) {
+      console.log("Error - response: ", error);
+      throw new Error("Error fetching block.");
+    }
   }
 }
 
