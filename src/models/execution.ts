@@ -2,5 +2,5 @@ import { Transition } from "./transition";
 
 export type Execution = {
     edition: number;
-    transitions?: (Transition)[] | null;
+    transitions?: (Transition)[];
 }

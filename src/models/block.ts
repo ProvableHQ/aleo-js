@@ -4,7 +4,7 @@ export type Block = {
     block_hash: string;
     previous_hash: string;
     header: Header;
-    transactions?: (Transaction)[] | null;
+    transactions?: (Transaction)[];
     signature: string;
 }
 export type Header = {

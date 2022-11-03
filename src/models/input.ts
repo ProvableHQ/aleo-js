@@ -1,9 +1,9 @@
 export type Input = {
     type: string;
     id: string;
-    tag?: string | null;
-    origin?: Origin | null;
-    value?: string | null;
+    tag?: string;
+    origin?: Origin;
+    value?: string;
 }
 export type Origin = {
     commitment: string;
