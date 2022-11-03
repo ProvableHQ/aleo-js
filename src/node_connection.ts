@@ -47,7 +47,7 @@ export class NodeConnection {
   }
 
   /**
-   * Returns de information of the setted account
+   * Returns the information of the setted account
    *
    * @example
    * let account = connection.getAccount(account);

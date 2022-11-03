@@ -31,15 +31,31 @@ For example, you could try the following in the browser console:
 
 >> let account = new Account()
 
+// Get the account's address
 >> account.address().to_string()
 
 >> let connection = new NodeConnection("http://localhost:4130") // Or your node's IP or domain
 
+// Associate the account to the new NodeConnection
 >> connection.setAccount(account)
 
+// Get all the ciphertexts for the setted account
+>> connection.getAllCiphertexts()
+
+// Get and log all the unspent ciphertexts for the setted account
 >> connection.getUnspentCiphertexts().then( (cyphers) => console.log(cyphers))
 
+// Get, decrypt and log all the unspent ciphertexts for the setted account
 >> connection.getUnspentCiphertexts().then( (cyphers) => console.log(account.decryptRecord(cyphers[0]).to_string()))
+
+// Get the node's latest block height
+>> connection.getLatestHeight()
+
+// Get a transaction by its id
+>> connection.getTransaction("at1handz9xjrqeynjrr0xay4pcsgtnczdksz3e584vfsgaz0dh0lyxq43a4wj")
+
+// Get a block by its number
+>> connection.getBlock(1)
 ```
 
 ## Extra Aleo Tools
