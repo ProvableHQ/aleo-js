@@ -1,22 +1,43 @@
 import { Address, PrivateKey, Signature, ViewKey } from "@entropy1729/aleo-sdk";
 
+interface AccountParam {
+  privateKey?: string;
+  seed?: Uint8Array;
+}
 /**
  * Class that represents an Aleo Account with a PrivateKey, from which an Address and a ViewKey derive.
+ * Can be created with an existing private key, a seed or simply be randomly generated.
+ * A seed consists of 32 bytes.
  * @example
- * let account = new Account();
- *
+ * let myRandomAccount = new Account();
+ * let seed = 'ce8b23470222bdee5f894ee77b607391';
+ * let arr = Uint8Array.from(seed)
+ * let mySeededAccount = new Account({seed: 'ce8b23470222bdee5f894ee77b607391'});
+ * let myExistingAccount = new Account({privateKey: 'myExistingPrivateKey'})
  */
 export class Account {
   pk: PrivateKey;
   vk: ViewKey;
   adr: Address;
 
-  constructor(privatekey = "") {
-    this.pk = privatekey
-      ? PrivateKey.from_string(privatekey)
-      : new PrivateKey();
+  constructor(params: AccountParam= {}) {
+    try {
+      this.pk = this.privateKeyFromParams(params);
+    } catch (e) {
+      console.error("Wrong parameter", e);
+      throw new Error("Wrong Parameter");
+    }
     this.vk = ViewKey.from_private_key(this.pk);
     this.adr = Address.from_private_key(this.pk);
+  }
+  private privateKeyFromParams(params: AccountParam) {
+    if (params.seed) {
+      return PrivateKey.from_seed_unchecked(params.seed);
+    }
+    if (params.privateKey) {
+      return PrivateKey.from_string(params.privateKey);
+    }
+    return new PrivateKey();
   }
 
   keys() {
