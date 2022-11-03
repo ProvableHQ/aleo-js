@@ -20,7 +20,7 @@ export class Account {
   vk: ViewKey;
   adr: Address;
 
-  constructor(params: AccountParam= {}) {
+  constructor(params: AccountParam = {}) {
     try {
       this.pk = this.privateKeyFromParams(params);
     } catch (e) {
