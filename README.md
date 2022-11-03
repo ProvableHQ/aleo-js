@@ -17,6 +17,31 @@ If you'd like to read more about Aleo accounts, private keys, etc., you may refe
 
 Happy hacking!
 
+## Getting Started
+
+1. To build the project, go to the project's root and execute `npm run build`.
+2. To start the development server, execute `cd dev_site && npx webpack build` to run webpack, and then `npm run dev`
+
+You can now connect to `localhost:4000` and start using Aleo.JS functionalities!
+
+For example, you could try the following in the browser console:
+
+```javascript
+>> const {Account, NodeConnection} = await AleoJS
+
+>> let account = new Account()
+
+>> account.address().to_string()
+
+>> let connection = new NodeConnection()
+
+>> connection.setAccount(account)
+
+>> connection.getUnspentCiphertexts().then( (cyphers) => console.log(cyphers))
+
+>> connection.getUnspentCiphertexts().then( (cyphers) => console.log(account.decryptRecord(cyphers[0]).to_string()))
+```
+
 ## Extra Aleo Tools
 
 [Aleo SDK account generator](https://aleohq.github.io/aleo/)
