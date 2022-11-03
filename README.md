@@ -33,7 +33,7 @@ For example, you could try the following in the browser console:
 
 >> account.address().to_string()
 
->> let connection = new NodeConnection()
+>> let connection = new NodeConnection("http://localhost:4130") // Or your node's IP or domain
 
 >> connection.setAccount(account)
 
