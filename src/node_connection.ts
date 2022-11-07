@@ -29,12 +29,12 @@ export class NodeConnection {
   }
 
   async useFetchData(
-    url: string = "/",
-    method: string = "GET",
-    body: string = "",
+    url = "/",
+    method = "GET",
+    body = "",
     headers: Record<string, string> = { "Content-Type": "application/json" }
   ) {
-    let response = await fetch(this.host + url, {
+    const response = await fetch(this.host + url, {
       method: method,
       body: JSON.stringify(body),
       headers: headers,
