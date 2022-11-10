@@ -103,7 +103,6 @@ dist
 # TernJS port file
 .tern-port
 
-
 #typescript
 src/*.js
 src/*.d.ts
