@@ -34,7 +34,7 @@ export class NodeConnection {
     body: string = "",
     headers: Record<string, string> = { "Content-Type": "application/json" }
   ) {
-    let response = await fetch(this.host + url, {
+    const response = await fetch(this.host + url, {
       method: method,
       body: JSON.stringify(body),
       headers: headers,
@@ -163,6 +163,22 @@ export class NodeConnection {
    */
   async getBlock(id: number) {
     return await this.useFetchData("/block/" + id);
+  }
+
+  /**
+   * Returns the total balance of the account associated with the connection
+   *
+   * @example
+   * let balance = connection.getAccountBalance(); // 100
+   */
+  getAccountBalance() {
+    const balance = this.getUnspentCiphertexts().then((ciphertexts) =>
+      this.account
+        ?.decryptRecords(ciphertexts)
+        .map((record) => +record.gates().split("u64")[0])
+        .reduce((sum, current) => sum + current)
+    );
+    return balance;
   }
 }
 
