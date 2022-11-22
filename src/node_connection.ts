@@ -225,6 +225,22 @@ export class NodeConnection {
       throw new Error("Error fetching block.");
     }
   }
+
+  /**
+   * Returns the total balance of the account associated with the connection
+   *
+   * @example
+   * let balance = connection.getAccountBalance(); // 100
+   */
+  getAccountBalance() {
+    const balance = this.getUnspentCiphertexts().then((ciphertexts) =>
+      this.account
+        ?.decryptRecords(ciphertexts)
+        .map((record) => +record.gates().split("u64")[0])
+        .reduce((sum, current) => sum + current)
+    );
+    return balance;
+  }
 }
 
 export default NodeConnection;
