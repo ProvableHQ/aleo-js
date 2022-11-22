@@ -105,6 +105,6 @@ dist
 
 
 #typescript
-src/*.js
-src/*.d.ts
-src/*.js.map
+src/**/*.js
+src/**/*.d.ts
+src/**/*.js.map

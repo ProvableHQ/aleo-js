@@ -1,8 +1,9 @@
 import fetch from "unfetch";
 import { Account } from "./account";
-import { Ciphertext } from "@entropy1729/aleo-sdk";
 import { Block } from "./models/block";
 import { Transaction} from "./models/transaction";
+
+type Ciphertext = string;
 
 /**
  * Class that represents an Aleo Node Connection and allows us to communicate with the node.
@@ -82,7 +83,7 @@ export class NodeConnection {
    * @example
    * let cyphertexts = connection.getAllCiphertexts();
    */
-  async getAllCiphertexts(): Promise<Array<Ciphertext> | Error> {
+  async getAllCiphertexts(): Promise<Array<Ciphertext>> {
     try {
       return await this.fetchData<Array<Ciphertext>>(
         "/ciphertexts/all",
@@ -101,7 +102,7 @@ export class NodeConnection {
    * @example
    * let cyphertexts = connection.getUnspentCiphertexts();
    */
-  async getUnspentCiphertexts(): Promise<Array<Ciphertext> | Error> {
+  async getUnspentCiphertexts(): Promise<Array<Ciphertext>> {
     try {
       return await this.fetchData<Array<Ciphertext>>(
         "/ciphertexts/unspent",
@@ -232,14 +233,19 @@ export class NodeConnection {
    * @example
    * let balance = connection.getAccountBalance(); // 100
    */
-  getAccountBalance() {
-    const balance = this.getUnspentCiphertexts().then((ciphertexts) =>
-      this.account
-        ?.decryptRecords(ciphertexts)
-        .map((record) => +record.gates().split("u64")[0])
-        .reduce((sum, current) => sum + current)
-    );
-    return balance;
+  async getAccountBalance() {
+    const ciphertexts = await this.getUnspentCiphertexts()
+    try {
+      const balance = this.account
+          ?.decryptRecords(ciphertexts)
+          .map((record) => +record.gates().split("u64")[0])
+          .reduce((sum, current) => sum + current,0)
+      return balance;
+    } catch (error) {
+      console.log("Error - response: ", error);
+      throw new Error("Error fetching block.");
+    }
+
   }
 }
 
