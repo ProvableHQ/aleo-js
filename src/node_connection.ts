@@ -31,6 +31,24 @@ export class NodeConnection {
     this.account = account;
   }
 
+  async useFetchData(
+    url = "/",
+    method = "GET",
+    body = "",
+    headers: Record<string, string> = { "Content-Type": "application/json" }
+  ) {
+    const response = await fetch(this.host + url, {
+      method: method,
+      body: JSON.stringify(body),
+      headers: headers,
+    });
+    try {
+      return await response.json();
+    } catch (error) {
+      return error;
+    }
+  }
+
   /**
    * Returns the information of the setted account
    *
